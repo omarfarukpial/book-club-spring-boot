@@ -3,6 +3,7 @@ package com.pial.book_club_organizer.model;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,6 +17,8 @@ public class Reader {
     private Integer age;
     private String district;
 
+    private String email;
+
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "book_reader_association",
@@ -28,12 +31,27 @@ public class Reader {
     public Reader() {
     }
 
+    public Reader(Integer id, String name, Integer age, String district, String email) {
+        this.name = name;
+        this.age = age;
+        this.district = district;
+        this.email = email;
+        this.bookList = new ArrayList<Book>();
+    }
+    public Reader(String name, Integer age, String district, String email) {
+        this.name = name;
+        this.age = age;
+        this.district = district;
+        this.email = email;
+        this.bookList = new ArrayList<Book>();
+    }
 
-    public Reader(Integer id, String name, Integer age, String district, List<Book> bookList) {
+    public Reader(Integer id, String name, Integer age, String district, String email, List<Book> bookList) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.district = district;
+        this.email = email;
         this.bookList = bookList;
     }
 
@@ -67,6 +85,14 @@ public class Reader {
 
     public void setDistrict(String district) {
         this.district = district;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public List<Book> getBookList() {
